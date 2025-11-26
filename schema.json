@@ -1,0 +1,590 @@
+{
+  "$ref": "#/definitions/CypressYamlPlugin",
+  "definitions": {
+    "CypressYamlPlugin": {
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 280
+        },
+        "skip": {
+          "type": "boolean"
+        },
+        "seedFile": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CypressYamlPlugin/properties/$schema"
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/CypressYamlPlugin/properties/$schema"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "assertContains": {
+                    "type": "object",
+                    "properties": {
+                      "selector": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "dataCy": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "text": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "exact": {
+                        "type": "boolean"
+                      },
+                      "placeholder": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "index": {
+                        "type": "integer",
+                        "minimum": 0
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "assertContains"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "assertNotVisible": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "selector": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/selector"
+                          },
+                          "dataCy": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/dataCy"
+                          },
+                          "text": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "exact": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/exact"
+                          },
+                          "placeholder": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/placeholder"
+                          },
+                          "index": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/index"
+                          },
+                          "mode": {
+                            "type": "string",
+                            "enum": [
+                              "hidden",
+                              "missing"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "assertNotVisible"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "assertText": {
+                    "type": "object",
+                    "properties": {
+                      "selector": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/selector"
+                      },
+                      "dataCy": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/dataCy"
+                      },
+                      "text": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "exact": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/exact"
+                      },
+                      "placeholder": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/placeholder"
+                      },
+                      "index": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/index"
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "assertText"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "assertVisible": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "selector": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/selector"
+                          },
+                          "dataCy": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/dataCy"
+                          },
+                          "text": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/2/properties/assertNotVisible/anyOf/1/properties/text"
+                          },
+                          "exact": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/exact"
+                          },
+                          "placeholder": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/placeholder"
+                          },
+                          "index": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/index"
+                          },
+                          "allowScroll": {
+                            "type": "boolean"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "assertVisible"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "expectUrl": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "equals": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "includes": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "expectUrl"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "log": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "message"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "log"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "open": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "path": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "options": {
+                            "type": "object",
+                            "additionalProperties": {}
+                          }
+                        },
+                        "required": [
+                          "path"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "open"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "pause": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "saveSnapshot": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      {
+                        "anyOf": [
+                          {
+                            "not": {}
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "additionalProperties": false
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "scrollIntoView": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "selector": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/selector"
+                          },
+                          "dataCy": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/dataCy"
+                          },
+                          "text": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/2/properties/assertNotVisible/anyOf/1/properties/text"
+                          },
+                          "exact": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/exact"
+                          },
+                          "placeholder": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/placeholder"
+                          },
+                          "index": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/index"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "scrollIntoView"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "setViewport": {
+                    "type": "object",
+                    "properties": {
+                      "width": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0
+                      },
+                      "height": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0
+                      }
+                    },
+                    "required": [
+                      "width",
+                      "height"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "setViewport"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "takeScreenshot": {
+                    "anyOf": [
+                      {
+                        "not": {}
+                      },
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "options": {
+                            "type": "object",
+                            "additionalProperties": {}
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "tapOn": {
+                    "anyOf": [
+                      {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/10/properties/scrollIntoView"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "selector": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/selector"
+                          },
+                          "dataCy": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/dataCy"
+                          },
+                          "text": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/2/properties/assertNotVisible/anyOf/1/properties/text"
+                          },
+                          "exact": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/exact"
+                          },
+                          "placeholder": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/placeholder"
+                          },
+                          "index": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/index"
+                          },
+                          "allowScroll": {
+                            "type": "boolean"
+                          },
+                          "xPercent": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 100
+                          },
+                          "yPercent": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 100
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "tapOn"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "typeText": {
+                    "type": "object",
+                    "properties": {
+                      "selector": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/selector"
+                      },
+                      "dataCy": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/dataCy"
+                      },
+                      "text": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "exact": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/exact"
+                      },
+                      "placeholder": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/placeholder"
+                      },
+                      "index": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/index"
+                      },
+                      "clear": {
+                        "type": "boolean"
+                      },
+                      "submit": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "typeText"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "waitFor": {
+                    "anyOf": [
+                      {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "ms": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "seconds": {
+                            "type": "number",
+                            "minimum": 0
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "waitFor"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "steps"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

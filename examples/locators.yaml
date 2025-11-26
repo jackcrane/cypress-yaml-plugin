@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jackcrane/cypress-yaml-plugin/main/schema.json
+name: Locator playground
+seedFile: fixtures/seed.json
+steps:
+  - assertVisible: '[data-cy="nav"]'
+  - assertVisible:
+      text: Continue
+      allowScroll: true
+  - tapOn:
+      placeholder: Email address
+      allowScroll: true
+  - typeText:
+      selector: 'input[name="code"]'
+      text: 123456
+  - assertContains:
+      selector: '[data-cy="toast"]'
+      text: Logged in

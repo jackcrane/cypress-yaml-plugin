@@ -1,0 +1,9 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jackcrane/cypress-yaml-plugin/main/schema.json
+name: Visual diff smoke
+seedFile: fixtures/seed.json
+steps:
+  - open: /visual
+  - screenshotAndDiff:
+      baseline: hero
+      name: hero-current
+      threshold: 0.01

@@ -1,0 +1,5 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jackcrane/cypress-yaml-plugin/main/schema.json
+name: Purposely broken spec
+seedFile: fixtures/seed.json
+steps:
+  - tapoon: "/broken"
