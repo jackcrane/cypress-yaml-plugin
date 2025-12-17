@@ -78,6 +78,45 @@ test("validateSpec enforces the schema produced by zod", () => {
   );
 });
 
+test("validateSpec surfaces schema errors for command payloads", () => {
+  const commandName = `payload-command-${randomUUID()}`;
+  registerCommand(
+    commandName,
+    () => [],
+    {
+      schema: z.object({
+        message: z.string(),
+      }),
+    }
+  );
+
+  const spec = {
+    description: "invalid payload",
+    steps: [
+      {
+        [commandName]: {
+          message: 123,
+        },
+      },
+    ],
+  };
+
+  assert.throws(
+    () =>
+      validateSpec(spec, {
+        filePath: "/tmp/payload.yaml",
+        stepMetadata: [{ line: 42 }],
+      }),
+    (error) => {
+      assert.ok(error instanceof YamlValidationError);
+      assert.match(error.message, new RegExp(`Invalid payload for command "${commandName}"`));
+      assert.match(error.message, /message/);
+      assert.equal(error.line, 42);
+      return true;
+    }
+  );
+});
+
 test("validateSpec sees commands registered after the schema cache is warmed", () => {
   validateSpec(
     {
