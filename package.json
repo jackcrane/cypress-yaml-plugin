@@ -13,7 +13,8 @@
   "scripts": {
     "build:schema": "node ./scripts/build-schema.js",
     "lint": "prettier --check \"**/*.{js,json,md,yaml,yml}\"",
-    "format": "prettier --write \"**/*.{js,json,md,yaml,yml}\""
+    "format": "prettier --write \"**/*.{js,json,md,yaml,yml}\"",
+    "test": "node --test"
   },
   "keywords": [
     "cypress",
