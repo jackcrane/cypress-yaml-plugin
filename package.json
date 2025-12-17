@@ -1,6 +1,6 @@
 {
   "name": "cypress-yaml-plugin",
-  "version": "0.1.6",
+  "version": "0.1.8",
   "description": "Convert YAML specs into Cypress tests with validation, schema tooling, and custom command support.",
   "type": "module",
   "main": "src/index.js",
@@ -40,9 +40,6 @@
     "magic-string": "^0.30.10",
     "prettier": "^3.2.5",
     "yaml": "^2.4.1",
-    "zod": "^3.22.4"
-  },
-  "devDependencies": {
-    "zod-to-json-schema": "^3.23.3"
+    "zod": "^3.25.0"
   }
 }
