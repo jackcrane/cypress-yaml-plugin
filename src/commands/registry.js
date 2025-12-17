@@ -1,8 +1,6 @@
-import fs from "node:fs";
-import path from "node:path";
-import { pathToFileURL, fileURLToPath } from "node:url";
 import { CommandRegistryError } from "../errors.js";
 import { findNearestMatch } from "../utils/levenshtein.js";
+import { builtinCommands } from "../generator/commands/builtins/index.js";
 
 const commands = new Map();
 
@@ -69,35 +67,18 @@ export function suggestCommands(input, limit = 3) {
   return findNearestMatch(input, names, limit);
 }
 
-async function loadBuiltInCommands() {
-  const directoryUrl = new URL("../generator/commands/builtins/", import.meta.url);
-  const directoryPath = fileURLToPath(directoryUrl);
-  const entries = fs
-    .readdirSync(directoryPath)
-    .filter((entry) => entry.endsWith(".js"))
-    .sort();
-
-  await Promise.all(
-    entries.map(async (fileName) => {
-      const moduleUrl = new URL(fileName, directoryUrl);
-      const definition = (await import(moduleUrl.href)).default;
-      if (!definition || typeof definition !== "object") {
-        throw new CommandRegistryError(
-          `Built-in command at ${path.relative(
-            process.cwd(),
-            fileURLToPath(moduleUrl)
-          )} must export a default object.`
-        );
-      }
-      registerCommand(definition.name, definition.generate, {
-        schema: definition.schema,
-        description: definition.description,
-        validate: definition.validate,
-        aliases: definition.aliases,
-      });
-    })
-  );
+function loadBuiltInCommands() {
+  for (const definition of builtinCommands) {
+    if (!definition || typeof definition !== "object") {
+      throw new CommandRegistryError("Built-in commands must export objects.");
+    }
+    registerCommand(definition.name, definition.generate, {
+      schema: definition.schema,
+      description: definition.description,
+      validate: definition.validate,
+      aliases: definition.aliases,
+    });
+  }
 }
 
-const initialization = loadBuiltInCommands();
-await initialization;
+loadBuiltInCommands();
