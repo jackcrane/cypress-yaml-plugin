@@ -33,6 +33,20 @@ test("registerCommand stores handlers and exposes aliases", () => {
   assert.equal(entry.name, name);
 });
 
+test("registerCommand trims names and alias definitions", () => {
+  const name = `  ${uniqueCommandName()}  `;
+  const alias = `  ${name}-alias  `;
+  const handler = () => {};
+
+  const entry = registerCommand(name, handler, {
+    aliases: [alias],
+  });
+
+  assert.equal(entry.name.startsWith(" "), false);
+  const aliasEntry = resolveCommand(alias.trim());
+  assert.equal(aliasEntry.name, alias.trim());
+});
+
 test("registerCommand enforces function handlers and unique names", () => {
   const name = uniqueCommandName();
   const handler = () => {};
@@ -53,6 +67,26 @@ test("registerCommand enforces function handlers and unique names", () => {
     (error) => {
       assert.ok(error instanceof CommandRegistryError);
       assert.match(error.message, /requires a generator function/);
+      return true;
+    }
+  );
+});
+
+test("registerCommand rejects empty or non-string names", () => {
+  assert.throws(
+    () => registerCommand("", () => {}),
+    (error) => {
+      assert.ok(error instanceof CommandRegistryError);
+      assert.match(error.message, /Command names must be non-empty/);
+      return true;
+    }
+  );
+
+  assert.throws(
+    () => registerCommand(null, () => {}),
+    (error) => {
+      assert.ok(error instanceof CommandRegistryError);
+      assert.match(error.message, /Command names must be non-empty/);
       return true;
     }
   );
