@@ -1,6 +1,7 @@
 import { CommandRegistryError } from "../errors.js";
 import { findNearestMatch } from "../utils/levenshtein.js";
 import { builtinCommands } from "../generator/commands/builtins/index.js";
+import { clearSchemaCache } from "../schema/cache.js";
 
 const commands = new Map();
 
@@ -42,6 +43,8 @@ export function registerCommand(name, handler, options = {}) {
       commands.set(alias, { ...entry, name: alias, isAlias: true });
     }
   }
+
+  clearSchemaCache();
 
   return entry;
 }

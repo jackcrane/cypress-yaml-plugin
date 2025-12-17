@@ -1,8 +1,11 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { randomUUID } from "node:crypto";
+import { z } from "zod";
 
 import { validateSpec } from "../src/validator.js";
 import { YamlValidationError } from "../src/errors.js";
+import { registerCommand } from "../src/commands/registry.js";
 
 test("validateSpec trims names and normalizes steps", () => {
   const spec = {
@@ -73,4 +76,43 @@ test("validateSpec enforces the schema produced by zod", () => {
       return true;
     }
   );
+});
+
+test("validateSpec sees commands registered after the schema cache is warmed", () => {
+  validateSpec(
+    {
+      description: "warm cache",
+      steps: ["log something"],
+    },
+    { filePath: "/tmp/warm-cache.yaml" }
+  );
+
+  const commandName = `runtime-command-${randomUUID()}`;
+  registerCommand(
+    commandName,
+    (value) => [`cy.log(${JSON.stringify(value.message)});`],
+    {
+      schema: z.object({
+        message: z.string(),
+      }),
+    }
+  );
+
+  const spec = {
+    description: "custom command",
+    steps: [
+      {
+        [commandName]: {
+          message: "hello world",
+        },
+      },
+    ],
+  };
+
+  const result = validateSpec(spec, {
+    filePath: "/tmp/custom-command.yaml",
+  });
+
+  assert.equal(result.steps[0].name, commandName);
+  assert.equal(result.steps[0].value.message, "hello world");
 });
