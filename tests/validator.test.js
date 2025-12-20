@@ -155,3 +155,30 @@ test("validateSpec sees commands registered after the schema cache is warmed", (
   assert.equal(result.steps[0].name, commandName);
   assert.equal(result.steps[0].value.message, "hello world");
 });
+
+test("selectFile requires filePath or complete inline file data", () => {
+  const spec = {
+    description: "invalid selectFile payload",
+    steps: [
+      {
+        selectFile: {
+          selector: '[data-cy="file-input"]',
+        },
+      },
+    ],
+  };
+
+  assert.throws(
+    () =>
+      validateSpec(spec, {
+        filePath: "/tmp/select-file.yaml",
+        stepMetadata: [{ line: 12 }],
+      }),
+    (error) => {
+      assert.ok(error instanceof YamlValidationError);
+      assert.match(error.message, /selectFile requires filePath or inline file data/i);
+      assert.equal(error.line, 12);
+      return true;
+    }
+  );
+});

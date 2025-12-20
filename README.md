@@ -64,6 +64,29 @@ Use `force: true` inside `tapOn` definitions when you need to click through over
 
 All built-in commands live under `src/generator/commands/builtins/` and have one-to-one YAML mappings. See `/examples` for a full walkthrough of locators, assertions, and control helpers.
 
+### selectFile command
+
+Attach fixtures or dynamically constructed files to inputs using `selectFile`. The command accepts the same locators as `tapOn`/`typeText` and can target by `selector`, `dataCy`, `placeholder`, or `text`.
+
+```yaml
+- selectFile:
+    dataCy: upload-input
+    filePath: cypress/fixtures/users.csv
+```
+
+Inline file definitions are also supported by providing all of `contents`, `fileName`, `mimeType`, and `lastModified`:
+
+```yaml
+- selectFile:
+    selector: 'input[type="file"]'
+    contents: Inline file contents
+    fileName: inline.txt
+    mimeType: text/plain
+    lastModified: 1700000000000
+```
+
+Specify either a `filePath` or the inline object—mixing modes is rejected during validation, and missing fields yield a descriptive error before generation.
+
 ## CLI usage
 ```bash
 # Validate a spec without generating code

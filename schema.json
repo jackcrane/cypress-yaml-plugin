@@ -390,6 +390,59 @@
               {
                 "type": "object",
                 "properties": {
+                  "selectFile": {
+                    "type": "object",
+                    "properties": {
+                      "selector": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/selector"
+                      },
+                      "dataCy": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/dataCy"
+                      },
+                      "text": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/2/properties/assertNotVisible/anyOf/1/properties/text"
+                      },
+                      "exact": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/exact"
+                      },
+                      "placeholder": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/placeholder"
+                      },
+                      "index": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/index"
+                      },
+                      "filePath": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "contents": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "fileName": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "mimeType": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "lastModified": {
+                        "type": "integer",
+                        "minimum": 0
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "selectFile"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
                   "setViewport": {
                     "type": "object",
                     "properties": {

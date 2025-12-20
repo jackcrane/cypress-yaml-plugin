@@ -114,6 +114,40 @@ steps:
   );
 });
 
+test("selectFile supports file paths and inline file data", async (t) => {
+  const yaml = `
+name: Select File Spec
+steps:
+  - selectFile:
+      selector: '[data-cy="file-input"]'
+      filePath: cypress/fixtures/users.csv
+  - selectFile:
+      dataCy: inline-upload
+      contents: Inline file contents
+      fileName: upload.txt
+      mimeType: text/plain
+      lastModified: 1700000000000
+`;
+  const { directory, filePath } = await createYamlSpec(yaml);
+
+  t.after(async () => {
+    await rm(directory, { recursive: true, force: true });
+  });
+
+  const { code } = await convertYamlToCypress(filePath);
+  const generated = stripSourceMap(code);
+
+  assert.ok(
+    generated.includes('.selectFile("cypress/fixtures/users.csv");'),
+    "filePath should be passed directly to selectFile"
+  );
+  assert.match(
+    generated,
+    /\.selectFile\(\{\s*contents: "Inline file contents",\s*fileName: "upload\.txt",\s*mimeType: "text\/plain",\s*lastModified: 1700000000000,\s*\}\);/s,
+    "inline file data should be serialized into selectFile"
+  );
+});
+
 test("custom registered commands can be invoked from YAML specs", async (t) => {
   registerCommand(
     "testCommand",
