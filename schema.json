@@ -454,9 +454,6 @@
                   "tapOn": {
                     "anyOf": [
                       {
-                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/10/properties/scrollIntoView"
-                      },
-                      {
                         "type": "object",
                         "properties": {
                           "selector": {
@@ -489,9 +486,15 @@
                             "type": "number",
                             "minimum": 0,
                             "maximum": 100
+                          },
+                          "force": {
+                            "type": "boolean"
                           }
                         },
                         "additionalProperties": false
+                      },
+                      {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/10/properties/scrollIntoView"
                       }
                     ]
                   }

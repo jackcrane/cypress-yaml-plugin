@@ -60,6 +60,8 @@ steps:
   - takeScreenshot: dashboard
   - "Reached dashboard"
 ```
+Use `force: true` inside `tapOn` definitions when you need to click through overlays or hidden targets—the option defaults to `false` so standard taps remain unchanged.
+
 All built-in commands live under `src/generator/commands/builtins/` and have one-to-one YAML mappings. See `/examples` for a full walkthrough of locators, assertions, and control helpers.
 
 ## CLI usage

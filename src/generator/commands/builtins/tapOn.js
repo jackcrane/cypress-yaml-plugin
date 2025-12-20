@@ -6,6 +6,7 @@ const tapObjectSchema = locatorObjectBase
     allowScroll: z.boolean().optional(),
     xPercent: z.number().min(0).max(100).optional(),
     yPercent: z.number().min(0).max(100).optional(),
+    force: z.boolean().optional(),
   })
   .superRefine((value, ctx) => {
     if (!value.selector && !value.dataCy && !value.placeholder && !value.text) {
@@ -16,7 +17,7 @@ const tapObjectSchema = locatorObjectBase
     }
   });
 
-const schema = z.union([locatorSchema, tapObjectSchema]);
+const schema = z.union([tapObjectSchema, locatorSchema]);
 
 function normalize(value) {
   if (typeof value === "string") {
@@ -31,12 +32,13 @@ export default {
   schema,
   generate: (value, { buildLocator }) => {
     const normalized = normalize(value);
-    const { allowScroll, xPercent, yPercent, ...locator } = normalized;
+    const { allowScroll, xPercent, yPercent, force, ...locator } = normalized;
     const lines = [buildLocator(locator)];
     if (allowScroll) {
       lines.push("  .scrollIntoView({ block: 'nearest', inline: 'nearest' })");
     }
     lines.push("  .should('be.visible')");
+    const clickOptions = force ? "{ force: true }" : null;
 
     if (xPercent !== undefined || yPercent !== undefined) {
       const resolvedX = typeof xPercent === "number" ? xPercent : 50;
@@ -49,10 +51,14 @@ export default {
       lines.push("    const rect = element.getBoundingClientRect();");
       lines.push(`    const x = rect.width * ${resolvedX} / 100;`);
       lines.push(`    const y = rect.height * ${resolvedY} / 100;`);
-      lines.push("    cy.wrap($el).click(x, y);");
+      const clickArgs = ["x", "y"];
+      if (clickOptions) {
+        clickArgs.push(clickOptions);
+      }
+      lines.push(`    cy.wrap($el).click(${clickArgs.join(", ")});`);
       lines.push("  })");
     } else {
-      lines.push("  .click()");
+      lines.push(clickOptions ? `  .click(${clickOptions})` : "  .click()");
     }
 
     return `${lines.join("\n")};`;

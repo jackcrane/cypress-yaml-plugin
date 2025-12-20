@@ -82,6 +82,38 @@ describe("Contact Spec", () => {
   assert.equal(stripSourceMap(code), expected);
 });
 
+test("tapOn can force click elements with or without coordinates", async (t) => {
+  const yaml = `
+name: Force Tap Spec
+steps:
+  - tapOn:
+      selector: '[data-cy="basic"]'
+      force: true
+  - tapOn:
+      selector: '[data-cy="with-coordinates"]'
+      xPercent: 25
+      yPercent: 75
+      force: true
+`;
+  const { directory, filePath } = await createYamlSpec(yaml);
+
+  t.after(async () => {
+    await rm(directory, { recursive: true, force: true });
+  });
+
+  const { code } = await convertYamlToCypress(filePath);
+  const generated = stripSourceMap(code);
+
+  assert.ok(
+    generated.includes(".click({ force: true });"),
+    "standard click should receive force option"
+  );
+  assert.ok(
+    generated.includes("cy.wrap($el).click(x, y, { force: true });"),
+    "coordinate click should receive force option"
+  );
+});
+
 test("custom registered commands can be invoked from YAML specs", async (t) => {
   registerCommand(
     "testCommand",
