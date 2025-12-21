@@ -1,11 +1,16 @@
 import { z } from "zod";
-import { locatorObjectBase } from "../../locator.js";
+import {
+  locatorObjectBase,
+  withParentScopeValidation,
+} from "../../locator.js";
 
 const schema = z.union([
   z.string().min(1),
-  locatorObjectBase.extend({
-    mode: z.enum(["hidden", "missing"]).optional(),
-  }),
+  withParentScopeValidation(
+    locatorObjectBase.extend({
+      mode: z.enum(["hidden", "missing"]).optional(),
+    })
+  ),
 ]);
 
 function normalize(value) {

@@ -1,21 +1,26 @@
 import { z } from "zod";
-import { locatorObjectBase } from "../../locator.js";
+import {
+  locatorObjectBase,
+  withParentScopeValidation,
+} from "../../locator.js";
 
-const schema = locatorObjectBase
-  .extend({
-    text: z.string().min(1, "typeText.text must be provided"),
-    clear: z.boolean().optional(),
-    submit: z.boolean().optional(),
-  })
-  .superRefine((value, ctx) => {
-    if (!value.selector && !value.dataCy && !value.placeholder) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message:
-          "typeText requires selector, dataCy, or placeholder to locate the input.",
-      });
-    }
-  });
+const schema = withParentScopeValidation(
+  locatorObjectBase
+    .extend({
+      text: z.string().min(1, "typeText.text must be provided"),
+      clear: z.boolean().optional(),
+      submit: z.boolean().optional(),
+    })
+    .superRefine((value, ctx) => {
+      if (!value.selector && !value.dataCy && !value.placeholder) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message:
+            "typeText requires selector, dataCy, or placeholder to locate the input.",
+        });
+      }
+    })
+);
 
 export default {
   name: "typeText",

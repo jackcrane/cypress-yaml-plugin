@@ -65,6 +65,14 @@
                       "index": {
                         "type": "integer",
                         "minimum": 0
+                      },
+                      "parent": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "parentCy": {
+                        "type": "string",
+                        "minLength": 1
                       }
                     },
                     "required": [
@@ -109,6 +117,12 @@
                           "index": {
                             "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/index"
                           },
+                          "parent": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/parent"
+                          },
+                          "parentCy": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/parentCy"
+                          },
                           "mode": {
                             "type": "string",
                             "enum": [
@@ -151,6 +165,12 @@
                       },
                       "index": {
                         "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/index"
+                      },
+                      "parent": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/parent"
+                      },
+                      "parentCy": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/parentCy"
                       }
                     },
                     "required": [
@@ -193,6 +213,12 @@
                           },
                           "index": {
                             "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/index"
+                          },
+                          "parent": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/parent"
+                          },
+                          "parentCy": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/parentCy"
                           },
                           "allowScroll": {
                             "type": "boolean"
@@ -375,6 +401,12 @@
                           },
                           "index": {
                             "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/index"
+                          },
+                          "parent": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/parent"
+                          },
+                          "parentCy": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/parentCy"
                           }
                         },
                         "additionalProperties": false
@@ -410,6 +442,12 @@
                       },
                       "index": {
                         "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/index"
+                      },
+                      "parent": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/parent"
+                      },
+                      "parentCy": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/parentCy"
                       },
                       "filePath": {
                         "type": "string",
@@ -527,6 +565,12 @@
                           "index": {
                             "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/index"
                           },
+                          "parent": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/parent"
+                          },
+                          "parentCy": {
+                            "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/parentCy"
+                          },
                           "allowScroll": {
                             "type": "boolean"
                           },
@@ -581,6 +625,12 @@
                       },
                       "index": {
                         "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/index"
+                      },
+                      "parent": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/parent"
+                      },
+                      "parentCy": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/parentCy"
                       },
                       "clear": {
                         "type": "boolean"

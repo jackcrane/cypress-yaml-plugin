@@ -62,6 +62,16 @@ steps:
 ```
 Use `force: true` inside `tapOn` definitions when you need to click through overlays or hidden targets—the option defaults to `false` so standard taps remain unchanged.
 
+All locator-aware commands (tapOn, typeText, selectFile, assertions, etc.) accept optional `parent` or `parentCy` fields to scope the search to a container. For example:
+
+```yaml
+- tapOn:
+    dataCy: confirm
+    parentCy: modal-dialog
+```
+
+The generated code queries `cy.get('[data-cy="modal-dialog"]').find('[data-cy="confirm"]')`, ensuring the button lives inside the modal. Use either `parent` (any CSS selector) or `parentCy`, but not both at the same time.
+
 All built-in commands live under `src/generator/commands/builtins/` and have one-to-one YAML mappings. See `/examples` for a full walkthrough of locators, assertions, and control helpers.
 
 ### selectFile command

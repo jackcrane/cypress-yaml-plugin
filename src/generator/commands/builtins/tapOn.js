@@ -1,21 +1,27 @@
 import { z } from "zod";
-import { locatorObjectBase, locatorSchema } from "../../locator.js";
+import {
+  locatorObjectBase,
+  locatorSchema,
+  withParentScopeValidation,
+} from "../../locator.js";
 
-const tapObjectSchema = locatorObjectBase
-  .extend({
-    allowScroll: z.boolean().optional(),
-    xPercent: z.number().min(0).max(100).optional(),
-    yPercent: z.number().min(0).max(100).optional(),
-    force: z.boolean().optional(),
-  })
-  .superRefine((value, ctx) => {
-    if (!value.selector && !value.dataCy && !value.placeholder && !value.text) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "tapOn requires selector, dataCy, placeholder, or text.",
-      });
-    }
-  });
+const tapObjectSchema = withParentScopeValidation(
+  locatorObjectBase
+    .extend({
+      allowScroll: z.boolean().optional(),
+      xPercent: z.number().min(0).max(100).optional(),
+      yPercent: z.number().min(0).max(100).optional(),
+      force: z.boolean().optional(),
+    })
+    .superRefine((value, ctx) => {
+      if (!value.selector && !value.dataCy && !value.placeholder && !value.text) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "tapOn requires selector, dataCy, placeholder, or text.",
+        });
+      }
+    })
+);
 
 const schema = z.union([tapObjectSchema, locatorSchema]);
 

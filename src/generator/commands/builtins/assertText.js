@@ -1,19 +1,24 @@
 import { z } from "zod";
-import { locatorObjectBase } from "../../locator.js";
+import {
+  locatorObjectBase,
+  withParentScopeValidation,
+} from "../../locator.js";
 
-const schema = locatorObjectBase
-  .extend({
-    text: z.string().min(1, "assertText.text must be provided"),
-  })
-  .superRefine((value, ctx) => {
-    if (!value.selector && !value.dataCy && !value.placeholder) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message:
-          "assertText must include selector, dataCy, or placeholder to locate the element.",
-      });
-    }
-  });
+const schema = withParentScopeValidation(
+  locatorObjectBase
+    .extend({
+      text: z.string().min(1, "assertText.text must be provided"),
+    })
+    .superRefine((value, ctx) => {
+      if (!value.selector && !value.dataCy && !value.placeholder) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message:
+            "assertText must include selector, dataCy, or placeholder to locate the element.",
+        });
+      }
+    })
+);
 
 export default {
   name: "assertText",

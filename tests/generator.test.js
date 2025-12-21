@@ -148,6 +148,48 @@ steps:
   );
 });
 
+test("locators can be scoped to parent selectors", async (t) => {
+  const yaml = `
+name: Nested Locator Spec
+steps:
+  - tapOn:
+      dataCy: child
+      parentCy: wrapper
+  - assertContains:
+      selector: 'button.save'
+      parent: '.modal'
+      text: "Save"
+  - tapOn:
+      text: "Button Label"
+      parent: ".dialog"
+`;
+  const { directory, filePath } = await createYamlSpec(yaml);
+
+  t.after(async () => {
+    await rm(directory, { recursive: true, force: true });
+  });
+
+  const { code } = await convertYamlToCypress(filePath);
+  const generated = stripSourceMap(code);
+
+  assert.ok(
+    generated.includes(
+      "cy.get('[data-cy=\"wrapper\"]')\n      .find('[data-cy=\"child\"]')"
+    ),
+    "child locators should filter inside parentCy selectors"
+  );
+  assert.ok(
+    generated.includes('cy.get(".modal").find("button.save")'),
+    "CSS parents should scope downstream selectors"
+  );
+  assert.ok(
+    generated.includes(
+      'cy.get(".dialog")\n      .contains("Button Label", { matchCase: true })'
+    ),
+    "text-based locators should call contains on the parent scope"
+  );
+});
+
 test("custom registered commands can be invoked from YAML specs", async (t) => {
   registerCommand(
     "testCommand",

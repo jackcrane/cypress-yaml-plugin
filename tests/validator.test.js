@@ -182,3 +182,32 @@ test("selectFile requires filePath or complete inline file data", () => {
     }
   );
 });
+
+test("locators reject specifying parent and parentCy together", () => {
+  const spec = {
+    description: "invalid parent definition",
+    steps: [
+      {
+        tapOn: {
+          dataCy: "child",
+          parent: ".modal",
+          parentCy: "wrapper",
+        },
+      },
+    ],
+  };
+
+  assert.throws(
+    () =>
+      validateSpec(spec, {
+        filePath: "/tmp/parent.yaml",
+        stepMetadata: [{ line: 5 }],
+      }),
+    (error) => {
+      assert.ok(error instanceof YamlValidationError);
+      assert.match(error.message, /parent/);
+      assert.equal(error.line, 5);
+      return true;
+    }
+  );
+});
