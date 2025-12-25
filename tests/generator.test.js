@@ -114,6 +114,37 @@ steps:
   );
 });
 
+test("tapOn text locators respect exact matches when requested", async (t) => {
+  const yaml = `
+name: Exact Tap Spec
+steps:
+  - tapOn:
+      text: "Hello"
+      exact: true
+  - tapOn:
+      text: "Hello World"
+`;
+  const { directory, filePath } = await createYamlSpec(yaml);
+
+  t.after(async () => {
+    await rm(directory, { recursive: true, force: true });
+  });
+
+  const { code } = await convertYamlToCypress(filePath);
+  const generated = stripSourceMap(code);
+
+  assert.ok(
+    generated.includes("cy.contains(/^Hello$/)"),
+    "exact text should compile to an anchored regex"
+  );
+  assert.ok(
+    generated.includes(
+      'cy.contains("Hello World", { matchCase: true })'
+    ),
+    "default text tap should still include the matchCase option"
+  );
+});
+
 test("selectFile supports file paths and inline file data", async (t) => {
   const yaml = `
 name: Select File Spec

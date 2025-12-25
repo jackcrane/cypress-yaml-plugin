@@ -50,6 +50,26 @@ function toAttributeSelector(name, value, exact = true) {
   return `[${name}${operator}"${value}"]`;
 }
 
+function escapeRegex(value) {
+  return value.replace(/[.*+?^${}()|[\]\\\/]/g, "\\$&");
+}
+
+function textContainsArguments(target) {
+  if (target.exactMatch) {
+    const escaped = escapeRegex(target.value);
+    const pattern = `/^${escaped}$/`;
+    const flags = target.matchCase ? "" : "i";
+    return flags ? `${pattern}${flags}` : pattern;
+  }
+
+  const matchCase = target.matchCase ? "true" : "false";
+  return `${stringify(target.value)}, { matchCase: ${matchCase} }`;
+}
+
+function buildContainsCall(prefix, target) {
+  return `${prefix}.contains(${textContainsArguments(target)})`;
+}
+
 function createParentExpression(params) {
   if (!params || typeof params !== "object") {
     return null;
@@ -99,6 +119,7 @@ function resolveTarget(params, allowText) {
       type: "text",
       value: params.text,
       matchCase: params.exact !== false,
+      exactMatch: params.exact === true,
     };
   }
 
@@ -112,8 +133,7 @@ function buildTargetExpression(target) {
     return `cy.get(${stringify(target.value)})`;
   }
   if (target.type === "text") {
-    const matchCase = target.matchCase ? "true" : "false";
-    return `cy.contains(${stringify(target.value)}, { matchCase: ${matchCase} })`;
+    return buildContainsCall("cy", target);
   }
   throw new Error("Unknown locator target type.");
 }
@@ -123,10 +143,7 @@ function buildScopedExpression(parentExpression, target) {
     return `${parentExpression}.find(${stringify(target.value)})`;
   }
   if (target.type === "text") {
-    const matchCase = target.matchCase ? "true" : "false";
-    return `${parentExpression}.contains(${stringify(
-      target.value
-    )}, { matchCase: ${matchCase} })`;
+    return buildContainsCall(parentExpression, target);
   }
   throw new Error("Unknown locator target type.");
 }

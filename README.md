@@ -60,7 +60,7 @@ steps:
   - takeScreenshot: dashboard
   - "Reached dashboard"
 ```
-Use `force: true` inside `tapOn` definitions when you need to click through overlays or hidden targets—the option defaults to `false` so standard taps remain unchanged.
+Use `force: true` inside `tapOn` definitions when you need to click through overlays or hidden targets—the option defaults to `false` so standard taps remain unchanged. Set `exact: true` when you want Cypress to match the provided `text` exactly instead of matching substrings (the option defaults to `false`, so routine taps stay flexible).
 
 All locator-aware commands (tapOn, typeText, selectFile, selectOption, assertions, etc.) accept optional `parent` or `parentCy` fields to scope the search to a container. For example:
 

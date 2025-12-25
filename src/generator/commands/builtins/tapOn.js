@@ -44,6 +44,7 @@ export default {
       lines.push("  .scrollIntoView({ block: 'nearest', inline: 'nearest' })");
     }
     lines.push("  .should('be.visible')");
+
     const clickOptions = force ? "{ force: true }" : null;
 
     if (xPercent !== undefined || yPercent !== undefined) {
