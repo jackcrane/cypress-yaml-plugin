@@ -148,6 +148,50 @@ steps:
   );
 });
 
+test("selectOption selects single or multiple values with parent scopes", async (t) => {
+  const yaml = `
+name: Select Option Spec
+steps:
+  - selectOption:
+      dataCy: state-select
+      option: California
+  - selectOption:
+      selector: 'select[name="stores"]'
+      options:
+        - CA
+        - NY
+      force: true
+      parent: '.modal'
+`;
+  const { directory, filePath } = await createYamlSpec(yaml);
+
+  t.after(async () => {
+    await rm(directory, { recursive: true, force: true });
+  });
+
+  const { code } = await convertYamlToCypress(filePath);
+  const generated = stripSourceMap(code);
+
+  assert.match(
+    generated,
+    /\.select\("California"\);/,
+    "single option selection should be emitted"
+  );
+  assert.match(
+    generated,
+    /\.select\(\["CA", "NY"\], \{ force: true \}\);/,
+    "multi-select arrays should be serialized with force option"
+  );
+  assert.ok(
+    generated.includes('cy.get(".modal")'),
+    "parent selectors should scope selectOption locators"
+  );
+  assert.ok(
+    generated.includes('.find(\'select[name="stores"]\')'),
+    "scoped select elements should retain CSS selectors"
+  );
+});
+
 test("locators can be scoped to parent selectors", async (t) => {
   const yaml = `
 name: Nested Locator Spec

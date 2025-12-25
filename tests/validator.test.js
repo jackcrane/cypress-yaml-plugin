@@ -183,6 +183,60 @@ test("selectFile requires filePath or complete inline file data", () => {
   );
 });
 
+test("selectOption enforces option payload rules", () => {
+  const missingSelection = {
+    description: "selectOption missing values",
+    steps: [
+      {
+        selectOption: {
+          selector: "select[name=status]",
+        },
+      },
+    ],
+  };
+
+  assert.throws(
+    () =>
+      validateSpec(missingSelection, {
+        filePath: "/tmp/select-option-missing.yaml",
+        stepMetadata: [{ line: 20 }],
+      }),
+    (error) => {
+      assert.ok(error instanceof YamlValidationError);
+      assert.match(error.message, /selectOption requires either option or options/i);
+      assert.equal(error.line, 20);
+      return true;
+    }
+  );
+
+  const conflictingSelection = {
+    description: "selectOption conflicting values",
+    steps: [
+      {
+        selectOption: {
+          dataCy: "state-select",
+          option: "CA",
+          options: ["CA", "NY"],
+        },
+      },
+    ],
+  };
+
+  assert.throws(
+    () =>
+      validateSpec(conflictingSelection, {
+        filePath: "/tmp/select-option-conflict.yaml",
+        stepMetadata: [{ line: 33 }],
+      }),
+    (error) => {
+      assert.ok(error instanceof YamlValidationError);
+      assert.match(error.message, /selectOption accepts option or options, not both/i);
+      assert.equal(error.line, 33);
+      return true;
+    }
+  );
+});
+
 test("locators reject specifying parent and parentCy together", () => {
   const spec = {
     description: "invalid parent definition",

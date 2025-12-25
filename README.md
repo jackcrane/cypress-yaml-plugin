@@ -62,7 +62,7 @@ steps:
 ```
 Use `force: true` inside `tapOn` definitions when you need to click through overlays or hidden targets—the option defaults to `false` so standard taps remain unchanged.
 
-All locator-aware commands (tapOn, typeText, selectFile, assertions, etc.) accept optional `parent` or `parentCy` fields to scope the search to a container. For example:
+All locator-aware commands (tapOn, typeText, selectFile, selectOption, assertions, etc.) accept optional `parent` or `parentCy` fields to scope the search to a container. For example:
 
 ```yaml
 - tapOn:
@@ -96,6 +96,30 @@ Inline file definitions are also supported by providing all of `contents`, `file
 ```
 
 Specify either a `filePath` or the inline object—mixing modes is rejected during validation, and missing fields yield a descriptive error before generation.
+
+### selectOption command
+
+`selectOption` targets a `<select>` element and calls `cy.select` with one or more option labels/values. The command inherits the standard locator fields (`selector`, `dataCy`, `placeholder`, `text`) as well as parent scoping helpers. Provide exactly one of `option` (string) or `options` (array of strings):
+
+```yaml
+- selectOption:
+    dataCy: state-select
+    option: California
+```
+
+For multi-select dropdowns or when forcing selection through overlays:
+
+```yaml
+- selectOption:
+    selector: 'select[name="stores"]'
+    options:
+      - CA
+      - NY
+    force: true
+    parent: '.modal'
+```
+
+Values are passed directly to Cypress, which matches option labels first and falls back to the `<option value="">` attribute.
 
 ## CLI usage
 ```bash

@@ -481,6 +481,60 @@
               {
                 "type": "object",
                 "properties": {
+                  "selectOption": {
+                    "type": "object",
+                    "properties": {
+                      "selector": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/selector"
+                      },
+                      "dataCy": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/dataCy"
+                      },
+                      "text": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/2/properties/assertNotVisible/anyOf/1/properties/text"
+                      },
+                      "exact": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/exact"
+                      },
+                      "placeholder": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/placeholder"
+                      },
+                      "index": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/index"
+                      },
+                      "parent": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/parent"
+                      },
+                      "parentCy": {
+                        "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/parentCy"
+                      },
+                      "option": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "options": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "minItems": 1
+                      },
+                      "force": {
+                        "type": "boolean"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "selectOption"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
                   "setViewport": {
                     "type": "object",
                     "properties": {

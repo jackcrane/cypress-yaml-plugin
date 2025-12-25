@@ -8,6 +8,7 @@ import open from "./open.js";
 import pause from "./pause.js";
 import saveSnapshot from "./saveSnapshot.js";
 import selectFile from "./selectFile.js";
+import selectOption from "./selectOption.js";
 import scrollIntoView from "./scrollIntoView.js";
 import setViewport from "./setViewport.js";
 import tapOn from "./tapOn.js";
@@ -26,6 +27,7 @@ export const builtinCommands = [
   pause,
   saveSnapshot,
   selectFile,
+  selectOption,
   scrollIntoView,
   setViewport,
   tapOn,
