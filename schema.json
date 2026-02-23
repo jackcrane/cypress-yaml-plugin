@@ -75,15 +75,11 @@
                         "minLength": 1
                       }
                     },
-                    "required": [
-                      "text"
-                    ],
+                    "required": ["text"],
                     "additionalProperties": false
                   }
                 },
-                "required": [
-                  "assertContains"
-                ],
+                "required": ["assertContains"],
                 "additionalProperties": false
               },
               {
@@ -125,10 +121,7 @@
                           },
                           "mode": {
                             "type": "string",
-                            "enum": [
-                              "hidden",
-                              "missing"
-                            ]
+                            "enum": ["hidden", "missing"]
                           }
                         },
                         "additionalProperties": false
@@ -136,9 +129,7 @@
                     ]
                   }
                 },
-                "required": [
-                  "assertNotVisible"
-                ],
+                "required": ["assertNotVisible"],
                 "additionalProperties": false
               },
               {
@@ -173,15 +164,11 @@
                         "$ref": "#/definitions/CypressYamlPlugin/properties/steps/items/anyOf/1/properties/assertContains/properties/parentCy"
                       }
                     },
-                    "required": [
-                      "text"
-                    ],
+                    "required": ["text"],
                     "additionalProperties": false
                   }
                 },
-                "required": [
-                  "assertText"
-                ],
+                "required": ["assertText"],
                 "additionalProperties": false
               },
               {
@@ -229,9 +216,7 @@
                     ]
                   }
                 },
-                "required": [
-                  "assertVisible"
-                ],
+                "required": ["assertVisible"],
                 "additionalProperties": false
               },
               {
@@ -260,9 +245,7 @@
                     ]
                   }
                 },
-                "required": [
-                  "expectUrl"
-                ],
+                "required": ["expectUrl"],
                 "additionalProperties": false
               },
               {
@@ -282,17 +265,13 @@
                             "minLength": 1
                           }
                         },
-                        "required": [
-                          "message"
-                        ],
+                        "required": ["message"],
                         "additionalProperties": false
                       }
                     ]
                   }
                 },
-                "required": [
-                  "log"
-                ],
+                "required": ["log"],
                 "additionalProperties": false
               },
               {
@@ -316,27 +295,20 @@
                             "additionalProperties": {}
                           }
                         },
-                        "required": [
-                          "path"
-                        ],
+                        "required": ["path"],
                         "additionalProperties": false
                       }
                     ]
                   }
                 },
-                "required": [
-                  "open"
-                ],
+                "required": ["open"],
                 "additionalProperties": false
               },
               {
                 "type": "object",
                 "properties": {
                   "pause": {
-                    "type": [
-                      "boolean",
-                      "null"
-                    ]
+                    "type": ["boolean", "null"]
                   }
                 },
                 "additionalProperties": false
@@ -414,9 +386,7 @@
                     ]
                   }
                 },
-                "required": [
-                  "scrollIntoView"
-                ],
+                "required": ["scrollIntoView"],
                 "additionalProperties": false
               },
               {
@@ -473,9 +443,7 @@
                     "additionalProperties": false
                   }
                 },
-                "required": [
-                  "selectFile"
-                ],
+                "required": ["selectFile"],
                 "additionalProperties": false
               },
               {
@@ -527,9 +495,7 @@
                     "additionalProperties": false
                   }
                 },
-                "required": [
-                  "selectOption"
-                ],
+                "required": ["selectOption"],
                 "additionalProperties": false
               },
               {
@@ -547,16 +513,11 @@
                         "exclusiveMinimum": 0
                       }
                     },
-                    "required": [
-                      "width",
-                      "height"
-                    ],
+                    "required": ["width", "height"],
                     "additionalProperties": false
                   }
                 },
-                "required": [
-                  "setViewport"
-                ],
+                "required": ["setViewport"],
                 "additionalProperties": false
               },
               {
@@ -650,9 +611,7 @@
                     ]
                   }
                 },
-                "required": [
-                  "tapOn"
-                ],
+                "required": ["tapOn"],
                 "additionalProperties": false
               },
               {
@@ -693,15 +652,11 @@
                         "type": "boolean"
                       }
                     },
-                    "required": [
-                      "text"
-                    ],
+                    "required": ["text"],
                     "additionalProperties": false
                   }
                 },
-                "required": [
-                  "typeText"
-                ],
+                "required": ["typeText"],
                 "additionalProperties": false
               },
               {
@@ -730,9 +685,7 @@
                     ]
                   }
                 },
-                "required": [
-                  "waitFor"
-                ],
+                "required": ["waitFor"],
                 "additionalProperties": false
               }
             ]
@@ -740,10 +693,7 @@
           "minItems": 1
         }
       },
-      "required": [
-        "steps"
-      ],
-      "additionalProperties": false
+      "required": ["steps"]
     }
   },
   "$schema": "http://json-schema.org/draft-07/schema#"
