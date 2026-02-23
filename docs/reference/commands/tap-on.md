@@ -2,16 +2,38 @@
 
 Click an element using a locator.
 
-## Payload
+## Input Overview
 
-- locator string (`selector` shorthand)
-- locator object with optional tap behavior:
-  - `allowScroll`
-  - `xPercent`
-  - `yPercent`
-  - `force`
+Accepted payload shapes:
 
-Locator fields are documented in [Locators](/guide/locators).
+- string selector shorthand
+- object payload
+
+Object payload fields:
+
+| Field         | Type          | Required | Notes                                                 |
+| ------------- | ------------- | -------- | ----------------------------------------------------- |
+| `selector`    | string        | no       | CSS selector target.                                  |
+| `dataCy`      | string        | no       | Shortcut for `[data-cy="..."]`.                       |
+| `placeholder` | string        | no       | Placeholder-based selector.                           |
+| `text`        | string        | no       | Text locator via `cy.contains(...)`.                  |
+| `exact`       | boolean       | no       | Locator matching behavior for `text` / `placeholder`. |
+| `index`       | integer >= 0  | no       | Adds `.eq(index)` to locator result.                  |
+| `parent`      | string        | no       | Parent CSS scope.                                     |
+| `parentCy`    | string        | no       | Parent `[data-cy]` scope.                             |
+| `allowScroll` | boolean       | no       | Scroll into view before visibility assertion.         |
+| `xPercent`    | number 0..100 | no       | Horizontal click position.                            |
+| `yPercent`    | number 0..100 | no       | Vertical click position.                              |
+| `force`       | boolean       | no       | Uses forced click behavior.                           |
+
+You must provide at least one locator field: `selector`, `dataCy`, `placeholder`, or `text`.
+
+## Defaults
+
+- `allowScroll`: `false`
+- `force`: `false`
+- Coordinate mode is off unless `xPercent` or `yPercent` is provided.
+- In coordinate mode, missing axis defaults to `50`.
 
 ## Examples
 

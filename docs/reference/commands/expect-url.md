@@ -2,12 +2,26 @@
 
 Assert on the current URL or pathname.
 
-## Payload
+## Input Overview
 
-- string: URL should include value
-- object with one of:
-  - `includes`
-  - `equals`
+Accepted payload shapes:
+
+- string payload
+- object payload
+
+Object payload fields:
+
+| Field      | Type   | Required      | Notes                               |
+| ---------- | ------ | ------------- | ----------------------------------- |
+| `includes` | string | conditionally | Asserts URL contains this value.    |
+| `equals`   | string | conditionally | Asserts pathname equals this value. |
+
+At least one of `includes` or `equals` is required.
+
+## Defaults
+
+- No default expectation.
+- If both `equals` and `includes` are provided, `equals` is used.
 
 ## Examples
 

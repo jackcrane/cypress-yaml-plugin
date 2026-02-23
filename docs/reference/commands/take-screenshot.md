@@ -2,13 +2,27 @@
 
 Capture a screenshot with `cy.screenshot(...)`.
 
-## Payload
+## Input Overview
 
-- omitted / null
-- string name
-- object with optional:
-  - `name`
-  - `options`
+Accepted payload shapes:
+
+- omitted (no payload)
+- `null`
+- non-empty string
+- object payload
+
+Object payload fields:
+
+| Field     | Type   | Required | Notes                       |
+| --------- | ------ | -------- | --------------------------- |
+| `name`    | string | no       | Screenshot name.            |
+| `options` | object | no       | Cypress screenshot options. |
+
+## Defaults
+
+- Omitted payload, `null`, or empty object all produce `cy.screenshot()`.
+- String payload is trimmed before generation.
+- If only `options` is provided, generation uses `cy.screenshot(undefined, options)`.
 
 ## Examples
 

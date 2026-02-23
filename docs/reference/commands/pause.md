@@ -2,9 +2,20 @@
 
 Pause test execution for interactive debugging.
 
-## Payload
+## Input Overview
 
-`pause` accepts omitted, `null`, or boolean payloads, but payload value does not change behavior.
+Accepted payload shapes:
+
+- omitted (no payload)
+- `null`
+- `true`
+- `false`
+
+Payload value is accepted for validation compatibility and does not change output.
+
+## Defaults
+
+- Behavior is always the same regardless of payload value.
 
 ## Example
 

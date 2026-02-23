@@ -2,16 +2,40 @@
 
 Attach a file to a file input with `cy.selectFile(...)`.
 
-## Payload
+## Input Overview
 
-Locator object plus one input mode:
+Accepted payload shape:
+
+- object payload
+
+Object payload fields:
+
+| Field          | Type         | Required      | Notes                                                                       |
+| -------------- | ------------ | ------------- | --------------------------------------------------------------------------- |
+| `selector`     | string       | no            | CSS selector target.                                                        |
+| `dataCy`       | string       | no            | Shortcut for `[data-cy="..."]`.                                             |
+| `placeholder`  | string       | no            | Placeholder-based selector.                                                 |
+| `text`         | string       | no            | Accepted by schema, but text-only targeting is not supported in generation. |
+| `exact`        | boolean      | no            | Affects placeholder matching behavior.                                      |
+| `index`        | integer >= 0 | no            | Adds `.eq(index)` to locator result.                                        |
+| `parent`       | string       | no            | Parent CSS scope.                                                           |
+| `parentCy`     | string       | no            | Parent `[data-cy]` scope.                                                   |
+| `filePath`     | string       | conditionally | Path-based file selection mode.                                             |
+| `contents`     | string       | conditionally | Inline file mode field.                                                     |
+| `fileName`     | string       | conditionally | Inline file mode field.                                                     |
+| `mimeType`     | string       | conditionally | Inline file mode field.                                                     |
+| `lastModified` | integer >= 0 | conditionally | Inline file mode field.                                                     |
+
+Provide one file mode only:
 
 - `filePath`, or
-- inline file object with all fields:
-  - `contents`
-  - `fileName`
-  - `mimeType`
-  - `lastModified`
+- all inline file fields (`contents`, `fileName`, `mimeType`, `lastModified`)
+
+## Defaults
+
+- No default locator.
+- No default file mode.
+- Inline mode has no partial defaults; all four inline fields are required together.
 
 ## Examples
 

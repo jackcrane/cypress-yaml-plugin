@@ -2,10 +2,26 @@
 
 Pause test execution for a fixed duration.
 
-## Payload
+## Input Overview
+
+Accepted payload shapes:
 
 - number (milliseconds)
-- object with `ms` or `seconds`
+- object payload
+
+Object payload fields:
+
+| Field     | Type        | Required | Notes                                   |
+| --------- | ----------- | -------- | --------------------------------------- |
+| `ms`      | number >= 0 | no       | Wait time in milliseconds.              |
+| `seconds` | number >= 0 | no       | Wait time in seconds (converted to ms). |
+
+At least one of `ms` or `seconds` is required.
+
+## Defaults
+
+- No default duration.
+- If both `ms` and `seconds` are provided, `ms` is used.
 
 ## Examples
 

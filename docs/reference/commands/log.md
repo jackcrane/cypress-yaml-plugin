@@ -2,10 +2,22 @@
 
 Write a message to the Cypress runner log.
 
-## Payload
+## Input Overview
 
-- string
-- object with `message`
+Accepted payload shapes:
+
+- string payload
+- object payload
+
+Object payload fields:
+
+| Field     | Type   | Required | Notes                            |
+| --------- | ------ | -------- | -------------------------------- |
+| `message` | string | yes      | Message passed to `cy.log(...)`. |
+
+## Defaults
+
+- No default message.
 
 ## Example
 

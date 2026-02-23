@@ -6,10 +6,22 @@ Trigger a custom snapshot helper:
 cy.savePageSnapshot(name);
 ```
 
-## Payload
+## Input Overview
 
-- string name
-- object with optional `name`
+Accepted payload shapes:
+
+- non-empty string
+- object payload
+
+Object payload fields:
+
+| Field  | Type   | Required | Notes          |
+| ------ | ------ | -------- | -------------- |
+| `name` | string | no       | Snapshot name. |
+
+## Defaults
+
+- If `name` is omitted from object payload, default name is `page`.
 
 ## Examples
 
@@ -24,5 +36,3 @@ cy.savePageSnapshot(name);
 ```js
 cy.savePageSnapshot("checkout-state");
 ```
-
-If no name is resolved, default is `page`.

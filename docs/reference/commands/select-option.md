@@ -2,15 +2,34 @@
 
 Select one or multiple options in an HTML `<select>` element.
 
-## Payload
+## Input Overview
 
-Locator object plus:
+Accepted payload shape:
 
-- `option` (single value), or
-- `options` (array of values)
-- optional `force`
+- object payload
 
-Provide `option` or `options`, not both.
+Object payload fields:
+
+| Field         | Type         | Required      | Notes                                                 |
+| ------------- | ------------ | ------------- | ----------------------------------------------------- |
+| `selector`    | string       | no            | CSS selector target.                                  |
+| `dataCy`      | string       | no            | Shortcut for `[data-cy="..."]`.                       |
+| `placeholder` | string       | no            | Placeholder-based selector.                           |
+| `text`        | string       | no            | Text locator via `cy.contains(...)`.                  |
+| `exact`       | boolean      | no            | Locator matching behavior for `text` / `placeholder`. |
+| `index`       | integer >= 0 | no            | Adds `.eq(index)` to locator result.                  |
+| `parent`      | string       | no            | Parent CSS scope.                                     |
+| `parentCy`    | string       | no            | Parent `[data-cy]` scope.                             |
+| `option`      | string       | conditionally | Single selected value.                                |
+| `options`     | string[]     | conditionally | Multiple selected values.                             |
+| `force`       | boolean      | no            | Passes `{ force: true }` to Cypress select.           |
+
+You must provide exactly one of `option` or `options`.
+
+## Defaults
+
+- `force`: `false`
+- No default selected option.
 
 ## Example
 

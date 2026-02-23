@@ -2,15 +2,31 @@
 
 Assert that an element is hidden or missing.
 
-## Payload
+## Input Overview
 
-- locator string
-- locator object with optional `mode`
+Accepted payload shapes:
 
-`mode` values:
+- string text shorthand
+- object payload
 
-- `hidden` (default): uses `not.be.visible`
-- `missing`: uses `not.exist`
+Object payload fields:
+
+| Field         | Type                  | Required | Notes                                                 |
+| ------------- | --------------------- | -------- | ----------------------------------------------------- |
+| `selector`    | string                | no       | CSS selector target.                                  |
+| `dataCy`      | string                | no       | Shortcut for `[data-cy="..."]`.                       |
+| `placeholder` | string                | no       | Placeholder-based selector.                           |
+| `text`        | string                | no       | Text locator via `cy.contains(...)`.                  |
+| `exact`       | boolean               | no       | Locator matching behavior for `text` / `placeholder`. |
+| `index`       | integer >= 0          | no       | Adds `.eq(index)` to locator result.                  |
+| `parent`      | string                | no       | Parent CSS scope.                                     |
+| `parentCy`    | string                | no       | Parent `[data-cy]` scope.                             |
+| `mode`        | `hidden` \| `missing` | no       | Assertion mode.                                       |
+
+## Defaults
+
+- `mode`: `hidden`
+- String shorthand is normalized to `{ text: <value>, exact: true }`.
 
 ## Examples
 

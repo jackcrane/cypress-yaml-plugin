@@ -2,12 +2,22 @@
 
 Set Cypress viewport dimensions with `cy.viewport(width, height)`.
 
-## Payload
+## Input Overview
 
-```yaml
-width: <positive integer>
-height: <positive integer>
-```
+Accepted payload shape:
+
+- object payload
+
+Object payload fields:
+
+| Field    | Type        | Required | Notes                      |
+| -------- | ----------- | -------- | -------------------------- |
+| `width`  | integer > 0 | yes      | Viewport width in pixels.  |
+| `height` | integer > 0 | yes      | Viewport height in pixels. |
+
+## Defaults
+
+- No defaults. Both `width` and `height` are required.
 
 ## Example
 
