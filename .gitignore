@@ -3,3 +3,4 @@ node_modules
 *.log
 /tmp/
 /examples/**/*.cy.js
+docs/.vitepress
